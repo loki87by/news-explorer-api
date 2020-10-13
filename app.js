@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const userLimit = require('express-rate-limit');
 const cors = require('cors');
@@ -40,6 +41,7 @@ app.use(cors({ origin: true }));
 app.use(limiter);
 
 // *парсеры
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
