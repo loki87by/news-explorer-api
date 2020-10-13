@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const userLimit = require('express-rate-limit');
 const cors = require('cors');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const createUserRouter = require('./routes/createUser');
@@ -39,6 +40,7 @@ const limiter = userLimit({
 
 app.use(cors({ origin: true }));
 app.use(limiter);
+app.use(helmet());
 
 // *парсеры
 app.use(cookieParser());
