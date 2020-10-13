@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/notFoundErr');
 const ForbiddenError = require('../errors/forbiddenErr');
 
 // **список статей
-module.exports.Articles = (req, res) => {
+module.exports.getAllArticles = (req, res) => {
   Article.find({})
     .populate('user')
     .then((articles) => res.send(articles))
