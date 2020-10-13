@@ -1,9 +1,12 @@
 // **импорты
+require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const createUserRouter = require('./routes/createUser');
 const loginRouter = require('./routes/login');
 const articleRouter = require('./routes/articleRouter');
+const auth = require('./middlewares/auth');
 const userRouter = require('./routes/userRouter');
 const pattern = require('./routes/pattern');
 
@@ -22,11 +25,18 @@ mongoose.connect('mongodb://localhost:27017/diploma', {
     console.log(err);
   });
 
+// **функционал
+// *парсеры
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // **подключение роутов
 // *регистрация
 app.use('/signup', createUserRouter);
 // *статьи
 app.use('/articles', articleRouter);
+// *мидлвэр аутентификации
+app.use(auth);
 // *пользователи
 app.use('/users', userRouter);
 // *url-пустышки
