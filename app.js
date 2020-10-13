@@ -3,6 +3,8 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const userLimit = require('express-rate-limit');
+const cors = require('cors');
 const createUserRouter = require('./routes/createUser');
 const loginRouter = require('./routes/login');
 const articleRouter = require('./routes/articleRouter');
@@ -26,6 +28,15 @@ mongoose.connect('mongodb://localhost:27017/diploma', {
   });
 
 // **функционал
+const limiter = userLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+  message: 'Мы заметили подозрительную активность с вашего IP-адреса, повторите запрос позже',
+});
+
+app.use(cors({ origin: true }));
+app.use(limiter);
+
 // *парсеры
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
