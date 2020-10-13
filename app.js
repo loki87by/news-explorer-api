@@ -1,6 +1,7 @@
 // **импорты
 const express = require('express');
 const mongoose = require('mongoose');
+const createUserRouter = require('./routes/createUser');
 const articleRouter = require('./routes/articleRouter');
 const userRouter = require('./routes/userRouter');
 const pattern = require('./routes/pattern');
@@ -20,9 +21,14 @@ mongoose.connect('mongodb://localhost:27017/diploma', {
     console.log(err);
   });
 
-// *подключение роутов
+// **подключение роутов
+// *регистрация
+app.use('/signup', createUserRouter);
+// *статьи
 app.use('/articles', articleRouter);
+// *пользователи
 app.use('/users', userRouter);
+// *url-пустышки
 app.use('*', pattern);
 
 // *портирование
