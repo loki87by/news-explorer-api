@@ -35,7 +35,7 @@ module.exports.createArticle = (req, res, next) => {
 
 // **удаление карточки
 module.exports.deleteArticle = (req, res, next) => {
-  Article.findById(req.params._id)
+  Article.findOne(req.params._id)
     .orFail()
     .catch(() => {
       throw new NotFoundError('Нет статьи с таким id');
@@ -44,7 +44,7 @@ module.exports.deleteArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Недостаточно прав для выполнения операции');
       }
-      Article.findByIdAndDelete(req.params._id)
+      Article.findOneAndDelete(req.params._id)
         .then((articleData) => {
           res.send({ data: articleData });
         })
