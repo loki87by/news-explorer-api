@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const createUserRouter = require('./routes/createUser');
+const loginRouter = require('./routes/login');
 const articleRouter = require('./routes/articleRouter');
 const userRouter = require('./routes/userRouter');
 const pattern = require('./routes/pattern');
@@ -30,6 +31,8 @@ app.use('/articles', articleRouter);
 app.use('/users', userRouter);
 // *url-пустышки
 app.use('*', pattern);
+// *логин
+app.use('/signin', loginRouter);
 
 // *портирование
 app.listen(PORT, () => {
