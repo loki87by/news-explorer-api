@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const articleRouter = require('./routes/articleRouter');
 const userRouter = require('./routes/userRouter');
+const pattern = require('./routes/pattern');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -22,6 +23,7 @@ mongoose.connect('mongodb://localhost:27017/diploma', {
 // *подключение роутов
 app.use('/articles', articleRouter);
 app.use('/users', userRouter);
+app.use('*', pattern);
 
 // *портирование
 app.listen(PORT, () => {
