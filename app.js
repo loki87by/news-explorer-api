@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userLimit = require('express-rate-limit');
 const cors = require('cors');
+const { errors } = require('celebrate');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const createUserRouter = require('./routes/createUser');
 const loginRouter = require('./routes/login');
 const articleRouter = require('./routes/articleRouter');
@@ -41,19 +43,36 @@ app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// *логгер запросов
+app.use(requestLogger);
+
 // **подключение роутов
 // *регистрация
 app.use('/signup', createUserRouter);
-// *статьи
-app.use('/articles', articleRouter);
+// *логин
+app.use('/signin', loginRouter);
 // *мидлвэр аутентификации
 app.use(auth);
 // *пользователи
 app.use('/users', userRouter);
+// *статьи
+app.use('/articles', articleRouter);
 // *url-пустышки
 app.use('*', pattern);
-// *логин
-app.use('/signin', loginRouter);
+
+// *обработка ошибок
+app.use(errorLogger);
+app.use(errors());
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+    message: statusCode === 500
+      ? 'На сервере произошла непредвиденная ошибка'
+      : message,
+  });
+  next(err);
+});
 
 // *портирование
 app.listen(PORT, () => {
