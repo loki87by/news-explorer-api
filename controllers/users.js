@@ -1,6 +1,8 @@
 // **импорты
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const ConflictError = require('../errors/conflictErr');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -15,6 +17,31 @@ module.exports.getMyInfo = (req, res) => {
           .send({ message: 'Такого пользователя не существует' || 'На сервере произошла непредвиденная ошибка' });
       }
     });
+};
+
+// **новый пользователь
+module.exports.createUser = (req, res, next) => {
+  const {
+    email, password, name,
+  } = req.body;
+  bcrypt.hash(password, 10)
+    .then((hash) => User.create({
+      email,
+      password: hash,
+      name,
+    }))
+    .catch((err) => {
+      if (err.name === 'MongoError' || err.code === 11000) {
+        throw new ConflictError('Пользователь с таким email уже существует');
+      } else next(err);
+    })
+    .then((user) => res.status(201).send({
+      data: {
+        name: user.name,
+        email: user.email,
+      },
+    }))
+    .catch(next);
 };
 
 // *логин

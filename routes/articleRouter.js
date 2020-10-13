@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 // **импорты
 const articleRouter = require('express').Router();
 const { celebrate, Joi, CelebrateErr } = require('celebrate');
