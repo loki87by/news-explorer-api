@@ -1,0 +1,41 @@
+{
+  "name": "news-explorer",
+  "version": "0.0.1",
+  "private": true,
+  "homepage": "https://loki87by.github.io/news-explorer-api/",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "gh-pages": "^3.1.0",
+    "nodemon": "^2.0.4"
+  },
+  "description": "Дипломная работа",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loki87by/news-explorer-api.git"
+  },
+  "keywords": [],
+  "author": "Alexey Akulich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loki87by/news-explorer-api/issues"
+  }
+}
