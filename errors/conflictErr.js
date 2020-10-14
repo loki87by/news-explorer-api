@@ -1,5 +1,4 @@
 // **ошибка дублирования
-/* eslint-disable linebreak-style */
 class ConflictError extends Error {
   constructor(message) {
     super(message);

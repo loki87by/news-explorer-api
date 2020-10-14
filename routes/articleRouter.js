@@ -1,6 +1,3 @@
-/* eslint-disable newline-per-chained-call */
-/* eslint-disable quotes */
-/* eslint-disable linebreak-style */
 // **импорты
 const articleRouter = require('express').Router();
 const { celebrate, Joi, CelebrateErr } = require('celebrate');
@@ -25,8 +22,10 @@ articleRouter.post('/', celebrate({
     text: Joi.string().required().label('text').messages(string),
     date: Joi.string().required().label('date').messages(string),
     source: Joi.string().required().label('source').messages(string),
-    link: Joi.string().custom(validateUrl).required().label('link').messages(url),
-    image: Joi.string().custom(validateUrl).required().label('image').messages(url),
+    link: Joi.string().custom(validateUrl).required().label('link')
+      .messages(url),
+    image: Joi.string().custom(validateUrl).required().label('image')
+      .messages(url),
   }),
 }), createArticle);
 
