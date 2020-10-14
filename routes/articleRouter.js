@@ -7,7 +7,7 @@ const { getAllArticles, createArticle, deleteArticle } = require('../controllers
 
 const validateUrl = (value) => {
   if (!validator.isURL(value)) {
-    throw new CelebrateErr('Введите корректный URL');
+    throw new CelebrateErr({ message: 'Введите корректный URL' });
   }
   return value;
 };

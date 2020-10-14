@@ -28,14 +28,14 @@ module.exports.createArticle = (req, res, next) => {
       if (res.statusCode === 400) {
         throw new BadRequestError('Переданы некорректные данные');
       }
-      res.send({ data: article });
+      res.status(201).send({ article });
     })
     .catch((err) => next(err));
 };
 
 // **удаление карточки
 module.exports.deleteArticle = (req, res, next) => {
-  Article.findOne(req.params._id)
+  Article.findById(req.params._id)
     .orFail()
     .catch(() => {
       throw new NotFoundError('Нет статьи с таким id');
@@ -44,9 +44,9 @@ module.exports.deleteArticle = (req, res, next) => {
       if (article.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Недостаточно прав для выполнения операции');
       }
-      Article.findOneAndDelete(req.params._id)
+      Article.findByIdAndDelete(req.params._id)
         .then((articleData) => {
-          res.send({ data: articleData });
+          res.send({ articleData });
         })
         .catch(next);
     })
