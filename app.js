@@ -4,10 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const userLimit = require('express-rate-limit');
 const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const { limiter, centralErrorHandler } = require('./utils/appExtensions');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const createUserRouter = require('./routes/createUser');
 const loginRouter = require('./routes/login');
@@ -32,12 +32,6 @@ mongoose.connect('mongodb://localhost:27017/diploma', {
   });
 
 // **функционал
-const limiter = userLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50,
-  message: 'Мы заметили подозрительную активность с вашего IP-адреса, повторите запрос позже',
-});
-
 app.use(cors({ origin: true }));
 app.use(limiter);
 app.use(helmet());
@@ -67,16 +61,7 @@ app.use('*', pattern);
 // *обработка ошибок
 app.use(errorLogger);
 app.use(errors());
-
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500
-      ? 'На сервере произошла непредвиденная ошибка'
-      : message,
-  });
-  next(err);
-});
+app.use(centralErrorHandler);
 
 // *портирование
 app.listen(PORT, () => {

@@ -19,6 +19,9 @@ settings:
 ignorePatterns:
   - /public/*.js
 rules:
+linebreak-style':
+    - 'error'
+    - 'windows'
   consistent-return:
     - off
   no-console:
