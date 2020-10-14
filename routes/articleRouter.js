@@ -1,13 +1,16 @@
+/* eslint-disable newline-per-chained-call */
+/* eslint-disable quotes */
 /* eslint-disable linebreak-style */
 // **импорты
 const articleRouter = require('express').Router();
 const { celebrate, Joi, CelebrateErr } = require('celebrate');
 const validator = require('validator');
 const { getAllArticles, createArticle, deleteArticle } = require('../controllers/articles');
+const { string, url } = require('../utils/celebrate');
 
 const validateUrl = (value) => {
   if (!validator.isURL(value)) {
-    throw new CelebrateErr({ message: 'Введите корректный URL' });
+    throw new CelebrateErr('Введите корректный URL');
   }
   return value;
 };
@@ -17,13 +20,13 @@ articleRouter.get('/', getAllArticles);
 
 articleRouter.post('/', celebrate({
   body: Joi.object().keys({
-    keyword: Joi.string().required(),
-    title: Joi.string().required(),
-    text: Joi.string().required(),
-    date: Joi.string().required(),
-    source: Joi.string().required(),
-    link: Joi.string().custom(validateUrl).required(),
-    image: Joi.string().custom(validateUrl).required(),
+    keyword: Joi.string().required().label('keyword').messages(string),
+    title: Joi.string().required().label('title').messages(string),
+    text: Joi.string().required().label('text').messages(string),
+    date: Joi.string().required().label('date').messages(string),
+    source: Joi.string().required().label('source').messages(string),
+    link: Joi.string().custom(validateUrl).required().label('link').messages(url),
+    image: Joi.string().custom(validateUrl).required().label('image').messages(url),
   }),
 }), createArticle);
 
