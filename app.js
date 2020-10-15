@@ -7,29 +7,21 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const { pathToDb } = require('./config');
 const { limiter, centralErrorHandler } = require('./utils/appExtensions');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const createUserRouter = require('./routes/createUser');
-const loginRouter = require('./routes/login');
-const articleRouter = require('./routes/articleRouter');
-const auth = require('./middlewares/auth');
-const userRouter = require('./routes/userRouter');
-const pattern = require('./routes/pattern');
+const indexRouter = require('./routes');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
 // **подключение к БД
-mongoose.connect('mongodb://localhost:27017/diploma', {
+mongoose.connect(pathToDb, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-})
-  .then(() => console.log('DB connected'))
-  .catch((err) => {
-    console.log(err);
-  });
+});
 
 // **функционал
 app.use(cors({ origin: true }));
@@ -45,18 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 // **подключение роутов
-// *регистрация
-app.use('/signup', createUserRouter);
-// *логин
-app.use('/signin', loginRouter);
-// *мидлвэр аутентификации
-app.use(auth);
-// *пользователи
-app.use('/users', userRouter);
-// *статьи
-app.use('/articles', articleRouter);
-// *url-пустышки
-app.use('*', pattern);
+app.use('/', indexRouter);
 
 // *обработка ошибок
 app.use(errorLogger);
@@ -64,6 +45,4 @@ app.use(errors());
 app.use(centralErrorHandler);
 
 // *портирование
-app.listen(PORT, () => {
-  console.log('Server started');
-});
+app.listen(PORT);

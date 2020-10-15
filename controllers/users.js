@@ -1,10 +1,9 @@
 // **импорты
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
 const User = require('../models/user');
 const ConflictError = require('../errors/conflictErr');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
 
 // *свои данные
 module.exports.getMyInfo = (req, res) => {
@@ -33,7 +32,9 @@ module.exports.createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'MongoError' || err.code === 11000) {
         throw new ConflictError('Пользователь с таким email уже существует');
-      } else next(err);
+      } else {
+        next(err);
+      }
     })
     .then((user) => res.status(201).send({
       name: user.name,
@@ -48,11 +49,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'efdc8333ecbf5019c9023644d4a5bede',
-        {
-          expiresIn: '7d',
-        },
+        { _id: user._id }, JWT_SECRET,
       );
       res.cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,

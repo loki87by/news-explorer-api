@@ -19,14 +19,8 @@ settings:
 ignorePatterns:
   - /public/*.js
 rules:
-linebreak-style':
-    - 'error'
-    - 'windows'
-  consistent-return:
-    - off
-  no-console:
-    - off
-  array-callback-return:
-    - off
+  linebreak-style: 0
   no-underscore-dangle:
-    - off
+    - error
+    - allow:
+      - _id
