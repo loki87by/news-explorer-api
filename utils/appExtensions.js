@@ -1,5 +1,7 @@
+// **импорты
 const userLimit = require('express-rate-limit');
 
+// **функционал
 // *лимитеp
 module.exports.limiter = userLimit({ windowMs: 15 * 60 * 1000, max: 50, message: 'Мы заметили подозрительную активность с вашего IP-адреса, повторите запрос позже' });
 

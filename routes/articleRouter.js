@@ -1,20 +1,14 @@
 // **импорты
 const articleRouter = require('express').Router();
-const { celebrate, Joi, CelebrateErr } = require('celebrate');
-const validator = require('validator');
+const { celebrate, Joi } = require('celebrate');
 const { getAllArticles, createArticle, deleteArticle } = require('../controllers/articles');
-const { errorText } = require('../utils/celebrate');
-
-const validateUrl = (value) => {
-  if (!validator.isURL(value)) {
-    throw new CelebrateErr('Введите корректный URL');
-  }
-  return value;
-};
+const { errorText, validateUrl } = require('../utils/celebrate');
 
 // **роуты
+// *получение всех статей
 articleRouter.get('/', getAllArticles);
 
+// *создание статьи
 articleRouter.post('/', celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required().label('keyword').messages(errorText),
@@ -29,6 +23,7 @@ articleRouter.post('/', celebrate({
   }),
 }), createArticle);
 
+// *удаление статьи
 articleRouter.delete('/:_id', celebrate({
   params: Joi.object().keys({
     id: Joi.string().alphanum().length(24).hex()

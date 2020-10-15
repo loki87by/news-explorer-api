@@ -1,5 +1,7 @@
+// **импорты
 const mongoose = require('mongoose');
 
+// **модель
 const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
@@ -45,5 +47,6 @@ const articleSchema = new mongoose.Schema({
     required: true,
   },
 });
+
 // **экспорт
 module.exports = mongoose.model('article', articleSchema);

@@ -1,3 +1,9 @@
+// **импорты
+const { CelebrateErr } = require('celebrate');
+const validator = require('validator');
+
+// **функционал
+// *текст ошибок
 module.exports.errorText = {
   'string.empty': 'Поле {#label} не должно быть пустым',
   'any.required': 'Поле {#label} обязательно к заполнению',
@@ -10,4 +16,12 @@ module.exports.errorText = {
   'string.length': 'Длина строки не соответствует ожидаемой.',
   'string.alphanum': 'Поле {#label} должно содержать только буквы и цифры',
   'string.hex': 'Параметр {#label} может содержать только символы шестнадцатеричной системы',
+};
+
+// *проверка валидности URL
+module.exports.validateUrl = (value) => {
+  if (!validator.isURL(value)) {
+    throw new CelebrateErr('Введите корректный URL');
+  }
+  return value;
 };

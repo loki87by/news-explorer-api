@@ -1,8 +1,10 @@
+// **импорты
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const UnauthorizedError = require('../errors/unauthorized');
 
+// **модель
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -39,5 +41,6 @@ userSchema.statics.findUserByCredentials = function (email, password) {
         return user;
       }));
 };
+
 // **экспорт
 module.exports = mongoose.model('user', userSchema);

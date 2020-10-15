@@ -1,16 +1,11 @@
 // **импорты
 require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const helmet = require('helmet');
-const { errors } = require('celebrate');
-const { pathToDb } = require('./config');
-const { limiter, centralErrorHandler } = require('./utils/appExtensions');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-const indexRouter = require('./routes');
+const {
+  express, bodyParser, cookieParser, mongoose, cors, helmet, errors,
+} = require('./utils/consts');
+const {
+  pathToDb, limiter, centralErrorHandler, requestLogger, errorLogger, indexRouter,
+} = require('./utils/consts');
 
 const { PORT = 3000 } = process.env;
 const app = express();

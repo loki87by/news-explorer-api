@@ -9,7 +9,10 @@ const ConflictError = require('../errors/conflictErr');
 module.exports.getMyInfo = (req, res) => {
   User.findById(req.user._id)
     .orFail(new Error('NotValidId'))
-    .then((user) => res.send(user))
+    .then((user) => res.send({
+      name: user.name,
+      email: user.email,
+    }))
     .catch((err) => {
       if (err.message === 'NotValidId') {
         res.status(err.message ? 404 : 500)

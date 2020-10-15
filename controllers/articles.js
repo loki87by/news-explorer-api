@@ -6,7 +6,7 @@ const ForbiddenError = require('../errors/forbiddenErr');
 
 // **список статей
 module.exports.getAllArticles = (req, res) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .populate('user')
     .then((articles) => res.send(articles))
     .catch((err) => res.status(err.message ? 400 : 500).send({ message: err.message || 'На сервере произошла непредвиденная ошибка' }));
@@ -47,7 +47,7 @@ module.exports.deleteArticle = (req, res, next) => {
       }
       Article.findByIdAndRemove(req.params._id)
         .then((articleData) => {
-          res.send(articleData);
+          res.send({ message: `статья ${articleData.title} удалена` });
         })
         .catch(next);
     })
