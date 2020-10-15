@@ -22,11 +22,3 @@ rules:
 linebreak-style':
     - 'error'
     - 'windows'
-  consistent-return:
-    - off
-  no-console:
-    - off
-  array-callback-return:
-    - off
-  no-underscore-dangle:
-    - off
