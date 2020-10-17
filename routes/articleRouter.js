@@ -1,7 +1,7 @@
 // **импорты
 const articleRouter = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const { getAllArticles, createArticle, deleteArticle } = require('../controllers/articles');
+const { celebrate, Joi } = require('../utils/libraries');
+const { getAllArticles, createArticle, deleteArticle } = require('../utils/allImports');
 const { errorText, validateUrl } = require('../utils/celebrate');
 
 // **роуты

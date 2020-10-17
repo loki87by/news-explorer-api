@@ -1,5 +1,5 @@
 // **импорты
-const userLimit = require('express-rate-limit');
+const { userLimit } = require('./libraries');
 
 // **функционал
 // *лимитеp

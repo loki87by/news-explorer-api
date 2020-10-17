@@ -1,6 +1,6 @@
 // **импорты
-const { CelebrateErr } = require('celebrate');
-const validator = require('validator');
+const { CelebrateErr, validator } = require('./libraries');
+const { enterTrueUrl } = require('./consts');
 
 // **функционал
 // *текст ошибок
@@ -21,7 +21,7 @@ module.exports.errorText = {
 // *проверка валидности URL
 module.exports.validateUrl = (value) => {
   if (!validator.isURL(value)) {
-    throw new CelebrateErr('Введите корректный URL');
+    throw new CelebrateErr(enterTrueUrl);
   }
   return value;
 };

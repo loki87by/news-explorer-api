@@ -1,8 +1,7 @@
 // **импорты
-const winston = require('winston');
-const expressWinston = require('express-winston');
-const path = require('path');
+const { winston, expressWinston, path } = require('../utils/libraries');
 
+// **путь к папке
 const dirPath = path.join(__dirname, '../../logs');
 
 // **функционал

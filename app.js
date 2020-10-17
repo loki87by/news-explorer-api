@@ -2,10 +2,10 @@
 require('dotenv').config();
 const {
   express, bodyParser, cookieParser, mongoose, cors, helmet, errors,
-} = require('./utils/consts');
+} = require('./utils/libraries');
 const {
   pathToDb, limiter, centralErrorHandler, requestLogger, errorLogger, indexRouter,
-} = require('./utils/consts');
+} = require('./utils/allImports');
 
 const { PORT = 3000 } = process.env;
 const app = express();

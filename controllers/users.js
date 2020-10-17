@@ -1,9 +1,9 @@
 // **импорты
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../config');
-const User = require('../models/user');
-const ConflictError = require('../errors/conflictErr');
+const { bcrypt, jwt } = require('../utils/libraries');
+const { JWT_SECRET, User, ConflictError } = require('../utils/allImports');
+const {
+  nonexistentUser, serverError, emailConflict, loginSuccess,
+} = require('../utils/consts');
 
 // *свои данные
 module.exports.getMyInfo = (req, res) => {
@@ -16,7 +16,7 @@ module.exports.getMyInfo = (req, res) => {
     .catch((err) => {
       if (err.message === 'NotValidId') {
         res.status(err.message ? 404 : 500)
-          .send({ message: 'Такого пользователя не существует' || 'На сервере произошла непредвиденная ошибка' });
+          .send({ message: nonexistentUser || serverError });
       }
     });
 };
@@ -34,7 +34,7 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'MongoError' || err.code === 11000) {
-        throw new ConflictError('Пользователь с таким email уже существует');
+        throw new ConflictError(emailConflict);
       } else {
         next(err);
       }
@@ -58,7 +58,7 @@ module.exports.login = (req, res, next) => {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
         sameSite: true,
-      }).send({ message: 'Авторизация прошла успешно' });
+      }).send({ message: loginSuccess });
     })
     .catch(next);
 };
