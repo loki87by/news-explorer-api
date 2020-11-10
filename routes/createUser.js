@@ -1,7 +1,7 @@
 // **импорт
 const createUserRouter = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const { createUser } = require('../controllers/users');
+const { celebrate, Joi } = require('../utils/libraries');
+const { createUser } = require('../utils/allImports');
 const { errorText } = require('../utils/celebrate');
 
 // **функционал
