@@ -1,7 +1,7 @@
 // **импорт
 const loginRouter = require('express').Router();
-const { celebrate, Joi } = require('../utils/libraries');
-const { login } = require('../utils/allImports');
+const { celebrate, Joi } = require('celebrate');
+const { login } = require('../controllers/users');
 const { errorText } = require('../utils/celebrate');
 
 // **функционал

@@ -1,5 +1,5 @@
 // **импорты
-const { mongoose } = require('../utils/libraries');
+const mongoose = require('mongoose');
 
 // **модель
 const articleSchema = new mongoose.Schema({
