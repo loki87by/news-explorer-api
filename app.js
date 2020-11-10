@@ -19,7 +19,19 @@ mongoose.connect(pathToDb, {
 });
 
 // **функционал
-app.use(cors({ origin: true }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://diplom.students.nomoreparties.co',
+      'http://www.diplom.students.nomoreparties.co',
+      'https://diplom.students.nomoreparties.co',
+      'https://www.diplom.students.nomoreparties.co',
+    ],
+    credentials: true,
+  }),
+);
 app.use(limiter);
 app.use(helmet());
 
