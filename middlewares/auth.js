@@ -1,7 +1,7 @@
 // **верификация
-const { jwt } = require('../utils/libraries');
-const { JWT_SECRET, UnauthorizedError } = require('../utils/allImports');
-const { authorizeFirst } = require('../utils/consts');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
+const UnauthorizedError = require('../errors/unauthorized');
 
 module.exports = (req, res, next) => {
   const token = req.cookies.jwt;
@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
-    throw new UnauthorizedError(authorizeFirst);
+    throw new UnauthorizedError('Сначала нужно авторизоваться');
   }
   req.user = payload;
   next();

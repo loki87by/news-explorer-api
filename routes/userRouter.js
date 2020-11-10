@@ -1,6 +1,6 @@
 // **импорты
 const userRouter = require('express').Router();
-const { getMyInfo } = require('../utils/allImports');
+const { getMyInfo } = require('../controllers/users');
 
 // **роуты
 // *роут получения информации о себе

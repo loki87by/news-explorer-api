@@ -1,7 +1,8 @@
 // **импорты
-const { mongoose, bcrypt, validator } = require('../utils/libraries');
-const { UnauthorizedError } = require('../utils/allImports');
-const { uncorrectedLoginData } = require('../utils/consts');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
+const UnauthorizedError = require('../errors/unauthorized');
 
 // **модель
 const userSchema = new mongoose.Schema({
@@ -28,13 +29,14 @@ const userSchema = new mongoose.Schema({
     maxlength: 30,
   },
 });
-userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
+// eslint-disable-next-line func-names
+userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
-    .orFail(new UnauthorizedError(uncorrectedLoginData))
+    .orFail(new UnauthorizedError('Неправильные почта или пароль'))
     .then((user) => bcrypt.compare(password, user.password)
       .then((matched) => {
         if (!matched) {
-          throw new UnauthorizedError(uncorrectedLoginData);
+          throw new UnauthorizedError('Неправильные почта или пароль');
         }
         return user;
       }));

@@ -1,22 +1,21 @@
 // **импорт
 const pattern = require('express').Router();
-const { pageNotFound } = require('../utils/consts');
 
 // **функционал
 pattern.get('*', (req, res) => {
-  res.status(404).send({ message: pageNotFound });
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 pattern.post('*', (req, res) => {
-  res.status(404).send({ message: pageNotFound });
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 pattern.put('*', (req, res) => {
-  res.status(404).send({ message: pageNotFound });
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 pattern.patch('*', (req, res) => {
-  res.status(404).send({ message: pageNotFound });
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 pattern.delete('*', (req, res) => {
-  res.status(404).send({ message: pageNotFound });
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
 
 // **экспорт
