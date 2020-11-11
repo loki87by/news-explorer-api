@@ -1,7 +1,7 @@
 // *импорт
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -20,7 +20,7 @@ const userLimit = require('express-rate-limit');
 module.exports = {
   express,
   bodyParser,
-  cookieParser,
+  /* cookieParser, */
   mongoose,
   cors,
   helmet,
