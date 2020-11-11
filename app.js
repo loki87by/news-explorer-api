@@ -21,7 +21,7 @@ mongoose.connect(pathToDb, {
 // **функционал
 app.use(
   cors({
-    origin: [
+    origin: /* [
       'http://localhost:3000',
       'https://localhost:3000',
       'http://diplom.students.nomoreparties.co',
@@ -29,7 +29,7 @@ app.use(
       'https://diplom.students.nomoreparties.co',
       'https://www.diplom.students.nomoreparties.co',
     ],
-    credentials: true,
+    credentials: */ true,
   }),
 );
 app.use(limiter);
