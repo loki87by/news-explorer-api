@@ -1,7 +1,7 @@
 // **импорты
 require('dotenv').config();
 const {
-  express, bodyParser, cookieParser, mongoose, cors, helmet, errors,
+  express, bodyParser, /* cookieParser, */ mongoose, cors, helmet, errors,
 } = require('./utils/consts');
 const {
   pathToDb, limiter, centralErrorHandler, requestLogger, errorLogger, indexRouter,
@@ -36,7 +36,7 @@ app.use(limiter);
 app.use(helmet());
 
 // *парсеры
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
