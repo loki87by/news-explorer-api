@@ -1,10 +1,19 @@
-# news-explorer-api
+# **news-explorer-api** 
+Сервер для проекта [*news-explorer-frontend*](https://github.com/loki87by/news-explorer-frontend) написанный на ExpressJs
+Технологии используемые в проекте: 
 
-Бэкэнд для проекта: [https://github.com/loki87by/news-explorer-frontend] (https://github.com/loki87by/news-explorer-frontend)
+* Переменные окружения 
+* Статические и динамические роуты 
+* Мидлвэры 
+* Централизованная обработка ошибок 
+* Соблюдение принципов REST 
+* Парсер данных 
+* Защита CORS 
+* Защита Helmet 
+* Ограничение повторных запросов 
+* Криптографическое формирование ключа 
+* jwt 
+* Mongo DB 
+* и другие 
 
-Домен для фронта:
-# http://diplom.students.nomoreparties.co/
-Поддомен (для бэка):
-# http://api.diplom.students.nomoreparties.co/
-
-P.S. возможно не работает, т.к. проект был учебным и не проплачивается
+В данное время виртуальная машина не подключена, т.к. нет смысла ее проплачивать для поддержки завершенного и закрытого учебного проекта
